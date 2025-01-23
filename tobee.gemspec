@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "lib/tobi/version"
+require_relative "lib/tobee/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "tobi"
-  spec.version = Tobi::VERSION
+  spec.name = "tobee"
+  spec.version = tobee::VERSION
   spec.authors = ["Tony Hsu"]
   spec.email = ["tonyc.t.hsu@gmail.com"]
 
-  spec.summary = "Tobi is not a baby, it's a toy"
-  spec.description = "Experimenting fun stuff with Tobi."
-  spec.homepage = "https://github.com/TonyCTHsu/tobi"
+  spec.summary = "tobee is not a baby, it's a toy"
+  spec.description = "Experimenting fun stuff with tobee."
+  spec.homepage = "https://github.com/TonyCTHsu/tobee"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
 
