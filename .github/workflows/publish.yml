@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
       GEM_VERSION: ${{ needs.release-gem.outputs.version }}
 
     permissions:
