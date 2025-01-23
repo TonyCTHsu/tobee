@@ -1,0 +1,49 @@
+name: Publish gem
+on: workflow_dispatch
+
+jobs:
+  release-gem:
+    name: Build and push gem to RubyGems.org
+    runs-on: ubuntu-24.04
+    environment: rubygems
+    concurrency: rubygems
+
+    permissions:
+      id-token: write
+      contents: write
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+      - name: Build gem
+        id: version
+        run: |
+          echo "version=$(ruby -e 'puts Gem::Specification::load(Dir.glob("*.gemspec").first).version')" >> $GITHUB_OUTPUT
+      - uses: rubygems/release-gem@v1
+
+  github-release:
+    name: Attach gem to GitHub release and publish
+    needs: release-gem
+    runs-on: ubuntu-24.04
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GEM_VERSION: ${{ needs.release-gem.outputs.version }}
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download from RubyGems
+        run: |
+          gem fetch toby --version ${GEM_VERSION} --verbose
+      - name: Attach to existing release draft
+        run: |
+          RELEASE_ID=$(gh release view "v${GEM_VERSION}" --json id -q '.id')
+          gh release upload ${RELEASE_ID} *.gem
+          gh release edit ${RELEASE_ID} --draft=false
