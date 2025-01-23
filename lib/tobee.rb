@@ -2,7 +2,7 @@
 
 require_relative "tobee/version"
 
-module tobee
+module Tobee
   class Error < StandardError; end
   # Your code goes here...
 end

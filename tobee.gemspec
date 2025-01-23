@@ -4,7 +4,7 @@ require_relative "lib/tobee/version"
 
 Gem::Specification.new do |spec|
   spec.name = "tobee"
-  spec.version = tobee::VERSION
+  spec.version = Tobee::VERSION
   spec.authors = ["Tony Hsu"]
   spec.email = ["tonyc.t.hsu@gmail.com"]
 
