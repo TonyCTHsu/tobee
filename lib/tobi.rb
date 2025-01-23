@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative "toby/version"
+require_relative "tobi/version"
 
-module Toby
+module Tobi
   class Error < StandardError; end
   # Your code goes here...
 end

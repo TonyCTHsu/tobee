@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: Download from RubyGems
         run: |
-          gem fetch toby --version ${GEM_VERSION} --verbose
+          gem fetch tobi --version ${GEM_VERSION} --verbose
       - name: Attach to existing release draft
         run: |
           RELEASE_ID=$(gh release view "v${GEM_VERSION}" --json id -q '.id')
