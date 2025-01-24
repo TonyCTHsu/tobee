@@ -32,49 +32,49 @@ jobs:
               core.setFailed(`The following checks failed: ${failedNames}`);
             }
 
-  release-gem:
-    name: Build and push gem to RubyGems.org
-    runs-on: ubuntu-24.04
-    environment: rubygems
-    concurrency: rubygems
+  # release-gem:
+  #   name: Build and push gem to RubyGems.org
+  #   runs-on: ubuntu-24.04
+  #   environment: rubygems
+  #   concurrency: rubygems
 
-    needs: verify-checks # Make sure to release from a healthy commit
+  #   needs: verify-checks # Make sure to release from a healthy commit
 
-    permissions:
-      id-token: write
-      contents: write
+  #   permissions:
+  #     id-token: write
+  #     contents: write
 
-    outputs:
-      version: ${{ steps.version.outputs.version }}
+  #   outputs:
+  #     version: ${{ steps.version.outputs.version }}
 
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-      - id: version
-        run: |
-          echo "version=$(ruby -e 'puts Gem::Specification::load(Dir.glob("*.gemspec").first).version')" >> $GITHUB_OUTPUT
-      - uses: rubygems/release-gem@v1
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Set up Ruby
+  #       uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: '3.3'
+  #     - id: version
+  #       run: |
+  #         echo "version=$(ruby -e 'puts Gem::Specification::load(Dir.glob("*.gemspec").first).version')" >> $GITHUB_OUTPUT
+  #     - uses: rubygems/release-gem@v1
 
-  github-release:
-    name: Attach gem to GitHub release and publish
-    needs: release-gem
-    runs-on: ubuntu-24.04
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GH_REPO: ${{ github.repository }}
-      GEM_VERSION: ${{ needs.release-gem.outputs.version }}
+  # github-release:
+  #   name: Attach gem to GitHub release and publish
+  #   needs: release-gem
+  #   runs-on: ubuntu-24.04
+  #   env:
+  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     GH_REPO: ${{ github.repository }}
+  #     GEM_VERSION: ${{ needs.release-gem.outputs.version }}
 
-    permissions:
-      contents: write
+  #   permissions:
+  #     contents: write
 
-    steps:
-      - name: Download from RubyGems
-        run: |
-          gem fetch tobee --version ${GEM_VERSION} --verbose
-      - name: Attach to existing release draft
-        run: |
-          gh release upload "v${GEM_VERSION}" *.gem --clobber
-          gh release edit "v${GEM_VERSION}" --draft=false
+  #   steps:
+  #     - name: Download from RubyGems
+  #       run: |
+  #         gem fetch tobee --version ${GEM_VERSION} --verbose
+  #     - name: Attach to existing release draft
+  #       run: |
+  #         gh release upload "v${GEM_VERSION}" *.gem --clobber
+  #         gh release edit "v${GEM_VERSION}" --draft=false
