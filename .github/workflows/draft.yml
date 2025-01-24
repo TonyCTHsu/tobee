@@ -27,7 +27,7 @@ jobs:
   github-release:
     name: Attach gem to GitHub release and publish
     needs: release-gem
-    runs-on: ubuntu-24.04 
+    runs-on: ubuntu-24.04
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_REPO: ${{ github.repository }}
