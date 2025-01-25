@@ -33,6 +33,15 @@ jobs:
             echo "Version $GEM_VERSION is not published yet"
           fi
 
+      - name: Verify deferred commit data
+        run: |
+          COMMIT_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/commit/$GITHUB_SHA"
+          STATUS=$(curl -sS --fail --retry 3 --retry-delay 5 "$COMMIT_URL/deferred_commit_data" | jq -r ".data.statusCheckStatus.state")
+          if [ "$STATUS" != "success" ]; then
+            echo "::error::Status check state is '$STATUS'. See: $COMMIT_URL"
+            exit 1
+          fi
+
       # Check if the commit has passed all Github checks
       - name: Verify check runs
         uses: actions/github-script@v7
