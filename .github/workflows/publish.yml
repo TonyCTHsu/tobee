@@ -2,7 +2,7 @@ name: Publish gem
 
 on: workflow_dispatch
 
-concurrency: "rubygems" # Only one publish job at a time
+concurrency: "rubygems.org" # Only one publish job at a time
 
 jobs:
   verify-checks:
@@ -68,7 +68,7 @@ jobs:
   rubygems-release:
     name: Build and push gem to RubyGems.org
     runs-on: ubuntu-24.04
-    environment: "rubygems"
+    environment: "rubygems.org"
     needs: verify-checks # Make sure to release from a healthy commit
     permissions:
       id-token: write
