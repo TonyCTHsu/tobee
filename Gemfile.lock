@@ -1,0 +1,45 @@
+PATH
+  remote: .
+  specs:
+    tobee (0.1.5)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    datadog (2.9.0)
+      datadog-ruby_core_source (~> 3.3, >= 3.3.7)
+      libdatadog (~> 14.3.1.1.0)
+      libddwaf (~> 1.18.0.0.0)
+      msgpack
+    datadog-ruby_core_source (3.4.0)
+    ffi (1.17.1)
+    ffi (1.17.1-aarch64-linux-gnu)
+    ffi (1.17.1-arm64-darwin)
+    ffi (1.17.1-x86_64-linux-gnu)
+    libdatadog (14.3.1.1.0)
+    libdatadog (14.3.1.1.0-aarch64-linux)
+    libdatadog (14.3.1.1.0-x86_64-linux)
+    libddwaf (1.18.0.0.0)
+      ffi (~> 1.0)
+    libddwaf (1.18.0.0.0-aarch64-linux)
+      ffi (~> 1.0)
+    libddwaf (1.18.0.0.0-arm64-darwin)
+      ffi (~> 1.0)
+    libddwaf (1.18.0.0.0-x86_64-linux)
+      ffi (~> 1.0)
+    msgpack (1.8.0)
+    rake (13.2.1)
+
+PLATFORMS
+  aarch64-linux
+  arm64-darwin-22
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  datadog (~> 2.0)
+  rake (~> 13.0)
+  tobee!
+
+BUNDLED WITH
+   2.5.23
