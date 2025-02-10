@@ -6,10 +6,11 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    datadog (2.9.0)
-      datadog-ruby_core_source (~> 3.3, >= 3.3.7)
+    datadog (2.10.0)
+      datadog-ruby_core_source (~> 3.4)
       libdatadog (~> 14.3.1.1.0)
       libddwaf (~> 1.18.0.0.0)
+      logger
       msgpack
     datadog-ruby_core_source (3.4.0)
     ffi (1.17.1)
@@ -27,6 +28,7 @@ GEM
       ffi (~> 1.0)
     libddwaf (1.18.0.0.0-x86_64-linux)
       ffi (~> 1.0)
+    logger (1.6.5)
     msgpack (1.8.0)
     rake (13.2.1)
 
@@ -37,7 +39,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  datadog (~> 2.0)
+  datadog (~> 2.10)
   rake (~> 13.0)
   tobee!
 
