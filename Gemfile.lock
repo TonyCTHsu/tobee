@@ -39,7 +39,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  datadog (~> 2.12)
+  datadog (~> 2.12.1)
   rake (~> 13.0)
   tobee!
 
