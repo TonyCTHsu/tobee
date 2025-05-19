@@ -6,4 +6,4 @@ source "https://rubygems.org"
 gemspec
 
 gem "rake", "~> 13.0"
-gem "datadog", "~> 2.12"
+gem "datadog", "~> 2.16"
