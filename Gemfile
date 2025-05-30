@@ -5,5 +5,5 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in tobee.gemspec
 gemspec
 
-gem "rake", "~> 13.0"
+gem "rake", "~> 13.3"
 gem "datadog", "~> 2.12"
