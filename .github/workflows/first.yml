@@ -1,15 +1,38 @@
 name: First
 
 on:
-  pull_request:
-    branches:
-      - master
   push:
     branches:
-      - master
+      - release
 
 jobs:
   build:
+    permissions:
+      contents: write
+      packages: write
     runs-on: ubuntu-latest
     steps:
-      - run: echo "First workflow"
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.8
+      - run: bundle install
+      - run: |
+          gem --version
+          bundle --version
+      - run: gem push --help
+      - run: gem fetch tobee -v 0.1.6
+      # - name: Create GitHub Release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     name: 0.1.6
+      #     draft: true
+      #     files: |
+      #       *.gem
+
+      - name: Publish to GitHub Packages
+        env:
+          GEM_HOST_API_KEY: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gem push --host https://rubygems.pkg.github.com/TonyCTHsu *.gem
