@@ -15,12 +15,29 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        # env:
+        #   BUNDLE_RUBYGEMS__PKG__GITHUB__COM: tonycthsu:${{ secrets.EQ_TOKEN }}
         with:
           ruby-version: 3.2.8
-      - run: bundle install
+
       - run: |
           gem --version
           bundle --version
+
+      - name: Configure RubyGems to use GitHub Packages
+        run: |
+          mkdir -p ~/.gem
+          echo ":github: Bearer ${{ secrets.EQ_TOKEN }}" >> ~/.gem/credentials
+          chmod 600 ~/.gem/credentials
+      - run: |
+          bundle config set --global https://rubygems.pkg.github.com/tonycthsu ${{ secrets.EQ_TOKEN }}
+
+      # - run: |
+      #     bundle config https://rubygems.pkg.github.com/tonycthsu tonycthsu:${{ secrets.EQ_TOKEN }}
+      - run: bundle install --verbose
+        env:
+          GITHUB_TOKEN: ${{ secrets.EQ_TOKEN }}
+          # BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{ secrets.EQ_TOKEN }}
       # - name: Configure RubyGems to use GitHub Packages
       #   run: |
       #     mkdir -p ~/.gem
@@ -29,16 +46,16 @@ jobs:
 
       # - run: gem install -V equilibrium -s https://rubygems.pkg.github.com/tonycthsu
 
-      - name: Configure .gemrc (another alternative)
-        run: |
-          cat > ~/.gemrc << EOF
-          ---
-          :sources:
-          - https://rubygems.org/
-          - https://rubygems.pkg.github.com/tonycthsu/
-          :github: Bearer ${{ secrets.GITHUB_TOKEN }}
-          EOF
+      # - name: Configure .gemrc (another alternative)
+      #   run: |
+      #     cat > ~/.gemrc << EOF
+      #     ---
+      #     :sources:
+      #     - https://rubygems.org/
+      #     - https://rubygems.pkg.github.com/tonycthsu/
+      #     :github: Bearer ${{ secrets.GITHUB_TOKEN }}
+      #     EOF
 
-          gem install -V equilibrium -s https://rubygems.pkg.github.com/tonycthsu
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     gem install -V equilibrium -s https://rubygems.pkg.github.com/tonycthsu
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
